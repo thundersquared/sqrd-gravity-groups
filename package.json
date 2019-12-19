@@ -1,0 +1,19 @@
+{
+  "name": "sqrd-gravity-groups",
+  "version": "1.0.0",
+  "dependencies": {},
+  "description": "Gravity Forms and Ultimate Member bridge that links user to chosen group on registration.",
+  "author": "thundersquared",
+  "license": "MIT",
+  "scripts": {
+    "package": "gulp",
+    "watch": "gulp watch"
+  },
+  "devDependencies": {
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-replace": "^1.0.0",
+    "gulp-watch": "^5.0.1",
+    "gulp-zip": "^5.0.0"
+  }
+}
