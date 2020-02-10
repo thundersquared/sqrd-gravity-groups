@@ -1,6 +1,6 @@
 {
   "name": "sqrd-gravity-groups",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {},
   "description": "Gravity Forms and Ultimate Member bridge that links user to chosen group on registration.",
   "author": "thundersquared",
