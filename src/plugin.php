@@ -52,7 +52,9 @@ class RegisterToGroup
     {
         global $wpdb;
 
-        $field_id = null;
+        $group_id_field_id = null;
+        $status_field_id = null;
+        $role_field_id = null;
 
         // Retrieve related form
         $form_id = $entry['form_id'];
@@ -63,19 +65,49 @@ class RegisterToGroup
         {
             if ($field['adminLabel'] === 'Group ID')
             {
-                $field_id = $field['id'];
+                $group_id_field_id = $field['id'];
+            }
+
+            if ($field['adminLabel'] === 'User Status')
+            {
+                $status_field_id = $field['id'];
+            }
+
+            if ($field['adminLabel'] === 'User Role')
+            {
+                $role_field_id = $field['id'];
             }
         }
 
         // Stop processing if no ID found
-        if (is_null($field_id))
+        if (is_null($group_id_field_id))
         {
             return false;
         }
 
         // Select entry data given field ID
-        $group_id = $entry[$field_id];
+        $group_id = $entry[$group_id_field_id];
         $user_id2 = um_user('ID');
+
+        // Select status value or fail to default
+        if (is_null($status_field_id))
+        {
+            $user_status = 'approved';
+        }
+        else
+        {
+            $user_status = trim($entry[$status_field_id]);
+        }
+
+        // Select status value or fail to default
+        if (is_null($role_field_id))
+        {
+            $user_role = 'member';
+        }
+        else
+        {
+            $user_role = trim($entry[$role_field_id]);
+        }
 
         // Get UM Groups API
         $api = UM()->Groups()->api();
@@ -98,8 +130,8 @@ class RegisterToGroup
                 'group_id' => $group_id,
                 'user_id1' => $user_id,
                 'user_id2' => $user_id2,
-                'status' => 'approved',
-                'role' => 'member',
+                'status' => $user_status,
+                'role' => $user_role,
                 'date_joined' => date('Y-m-d H:i:s', current_time('timestamp'))
             ),
             array(
